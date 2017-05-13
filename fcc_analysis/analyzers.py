@@ -1,3 +1,4 @@
+import json
 import re
 
 WORDSPLIT_PATTERN = re.compile("['-]+", re.UNICODE)
@@ -114,6 +115,12 @@ def fingerprint(comment):
     return " ".join(words)
 
 
+def proceeding_hash(comment):
+    if 'proceeding' not in comment:
+        return
+    return hash(json.dumps(comment['proceeding'], sort_keys=True))
+
+
 def analyze(comment):
 
     analysis = {
@@ -121,7 +128,8 @@ def analyze(comment):
         'fulladdress': fulladdress(comment),
         'capsemail': capsemail(comment),
         # 'titleii': titleii(comment),
-        'source': source(comment)
+        'source': source(comment),
+        'proceeding_hash': proceeding_hash(comment)
     }
 
     source_mapping = {
