@@ -12,11 +12,12 @@ OLIVER_PATTERNS = [
 ]
 
 PRO_TITLE_II_PATTERNS = [
-    re.compile('(preserve|keep|maintain)( net)? neutral(ity)?', flags=re.IGNORECASE),
-    re.compile('(preserve|keep|maintain) title (ii|2|two|ll)?', flags=re.IGNORECASE),
+    re.compile('(preserve|keep|maintain|uphold|continue|protect)( net)? neutral(ity)?', flags=re.IGNORECASE),
+    re.compile('(preserve|keep|maintain|uphold|continue|protect) title (ii|2|two|ll)?', flags=re.IGNORECASE),
     re.compile('I( strongly)? support title (2|ii|two|ll)', flags=re.IGNORECASE),
-    re.compile('I( strongly)? support( strong)? net neutrality', flags=re.IGNORECASE),
-    re.compile('do not repeal', flags=re.IGNORECASE)
+    re.compile('I( strongly| specifically)? support( strong)? net neutrality', flags=re.IGNORECASE),
+    re.compile('(strongly|specifically) support (net neutrality|title (ii|2|two|ll))', flags=re.IGNORECASE),
+    re.compile('do not (repeal|revoke|remove)', flags=re.IGNORECASE)
 ]
 
 ANTI_TITLE_II_PATTERNS = [

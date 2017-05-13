@@ -72,7 +72,9 @@ class AnalyzerTestCase(TestCase):
             'Network Neutrality Preserve Title II',
             'I support strong net neutrality under title 2.',
             'keep title 2 and net neutrality',
-            'Do not repeal net neutrality laws, the internet is a basic right!'
+            'Do not repeal net neutrality laws, the internet is a basic right!',
+            'FCC Chairman Ajit Pai,\n\nI specifically support strong net neutrality that is backed by title 2 oversight of ISPs.',
+            'Strongly support net neutrality and Title 2!'
         ]
 
         for text in pro:
