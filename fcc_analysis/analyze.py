@@ -151,7 +151,11 @@ class CommentAnalyzer:
 
         progress.close()
 
-
-if __name__ == '__main__':
+def main():
     analyzer = CommentAnalyzer(endpoint='https://search-fcc-comments-m72e6e5oukdhdmhhrngv4hewsi.eu-west-1.es.amazonaws.com/', verify=False)
     analyzer.run()
+
+
+if __name__ == '__main__':
+    main()
+
