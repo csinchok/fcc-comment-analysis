@@ -67,6 +67,10 @@ def source(comment):
 
 def titleii(comment):
 
+    if 'text_data' not in comment:
+        return None
+
+
     for pattern in PRO_TITLE_II_PATTERNS:
         if pattern.search(comment['text_data']):
             return True
