@@ -1,0 +1,11 @@
+*.py[co]
+
+*.egg-info
+pyvenv.cfg
+
+/bin
+/lib
+/lib64
+/include
+/share
+/.ipynb_checkpoints
