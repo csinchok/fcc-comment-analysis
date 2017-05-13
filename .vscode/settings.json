@@ -1,3 +1,20 @@
 {
-    "python.linting.pylintEnabled": false
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.DS_Store": true,
+        "**/__pycache__": true,
+        ".cache": true,
+        "**/*.py[co]": true,
+        "bin" : true,
+        "lib" : true,
+        "lib64": true,
+        "share": true,
+        "include" : true
+    },
+    "python.pythonPath": "./bin/python",
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Path": "./bin/flake8"
 }

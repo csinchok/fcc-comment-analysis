@@ -4,33 +4,8 @@ from tqdm import tqdm
 import requests
 import warnings
 import io
-import argparse
 
 from .analyzers import analyze
-
-
-def get_source(comment):
-    if 'text_data' not in comment:
-        return
-
-    if comment['text_data'].startswith('The unprecedented regulatory power the Obama Administration imposed on the internet'):
-        return 'bot.unprecedented'
-
-    if comment['text_data'].startswith('The FCC Open Internet Rules (net neutrality rules) are extremely important to me'):
-        return 'form.battleforthenet'
-
-    if comment['text_data'].startswith('I was outraged by the Obama/Wheeler FCC'):
-        return 'bot.outraged'
-
-    if 'my understanding that the FCC Chairman intends to reverse net neutrality rules' in comment['text_data']:
-        return 'reddit.technology'
-
-    if 'i support the existing net neutrality rules, which classify internet service providers under the title i' in comment['text_data'].lower():
-        return 'blog.venturebeat'
-
-    if comment['text_data'].startswith('Obama’s Title II order has diminished broadband investment'):
-        return 'form.diminished-investment'
-
 
 
 class CommentAnalyzer:
@@ -48,7 +23,7 @@ class CommentAnalyzer:
             process = multiprocessing.Process(target=self.tagging_worker, args=(in_queue, out_queue))
             process.start()
             tagging_processes.append(process)
-        
+
         index_process = multiprocessing.Process(target=self.index_worker, args=(out_queue,))
         index_process.start()
 
@@ -69,7 +44,7 @@ class CommentAnalyzer:
         index_process.join()
 
     def tagging_worker(self, in_queue, out_queue):
-        
+
         while True:
             comment = in_queue.get()
             if comment is None:
@@ -142,24 +117,16 @@ class CommentAnalyzer:
             for hit in hits:
                 yield hit['_source']
                 progress.update(1)
-            
+
             with warnings.catch_warnings():
                 warnings.simplefilter("ignore")
                 response = requests.post(scroll_url, headers=headers, verify=self.verify, data=json.dumps({
                     'scroll': timeout,
                     'scroll_id': scroll_id
                 }))
-                
+
             scroll_id = response.json()['_scroll_id']
             hits = response.json()['hits']['hits']
 
         progress.close()
-
-def main():
-    analyzer = CommentAnalyzer(endpoint='https://search-fcc-comments-m72e6e5oukdhdmhhrngv4hewsi.eu-west-1.es.amazonaws.com/', verify=False)
-    analyzer.run()
-
-
-if __name__ == '__main__':
-    main()
 
