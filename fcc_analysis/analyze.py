@@ -6,7 +6,7 @@ import warnings
 import io
 import argparse
 
-from .analyzers import analysis
+from .analyzers import analyze
 
 
 def get_source(comment):
