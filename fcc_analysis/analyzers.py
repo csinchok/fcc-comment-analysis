@@ -61,6 +61,9 @@ def source(comment):
     if 'passed rules treating the internet as a government regulated public utility for the first time in history' in comment['text_data'].lower():
         return 'form.freeourinternet'
 
+    if comment['text_data'].startswith('"Dear Express Restoring Internet Freedom,'):
+        return 'form.fwact'
+
     # This is the text that John Oliver suggested. Many people seemed to follow his suggestion.
     for pattern in OLIVER_PATTERNS:
         if pattern.search(comment['text_data']):
@@ -125,6 +128,7 @@ def analyze(comment):
         'bot.outraged': False,
         'form.diminished-investment': False,
         'form.freeourinternet': False,
+        'form.fwact': False,
 
         'johnoliver': True,
         'form.battleforthenet': True,
