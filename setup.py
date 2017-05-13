@@ -61,8 +61,8 @@ setup(
 
     entry_points={
         'console_scripts': [
-            'index = fcc_analysis.index:main',
-            'analyze = fcc_analysis.analyze:main',
+            'fcc_index = fcc_analysis.index:main',
+            'fcc_analyze = fcc_analysis.analyze:main',
         ],
     },
 
