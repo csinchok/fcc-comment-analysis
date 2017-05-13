@@ -3,8 +3,12 @@ import re
 WORDSPLIT_PATTERN = re.compile("['-]+", re.UNICODE)
 NON_CHAR_PATTERN = re.compile('[^a-z ]+', re.UNICODE)
 
+
+# I know...now I have two problems...
 OLIVER_PATTERNS = [
-    re.compile('i( specifically)? support strong net neutrality,?( oversight)? backed by title (ii|2|two) oversight of isp', flags=re.IGNORECASE),
+    re.compile('(strong )?net neutrality( rules)? backed by title (ii|2|two)', flags=re.IGNORECASE),
+    re.compile('i( specifically)? support( strong)? net neutrality backed by title', flags=re.IGNORECASE),
+    re.compile('i( specifically| strongly)? support( strong)? net neutrality,?( oversight)?( backed)? by title (ii|2|two) oversight', flags=re.IGNORECASE),
 ]
 
 

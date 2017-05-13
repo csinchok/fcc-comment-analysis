@@ -35,7 +35,13 @@ class AnalyzerTestCase(TestCase):
             'I support strong net neutrality oversight backed by Title II oversight of ISP\'s.',
             # 'I support strong net neutrality backed by title oversight of Title II oversight of ISPs.',
             'I specifically support strong Net Neutrality, backed by Title II oversight of ISP\'s.',
-            'I specifically support strong net neutrality backed by Title II oversight of ISP\'s!!!'
+            'I specifically support strong net neutrality backed by Title II oversight of ISP\'s!!!',
+            'i strongly support Net Neutrality backed by TItle II oversight.',
+            'I support strong net neutrality by Title II oversight of ISPs.',
+            'I strongly urge the FCC to maintain strong net neutrality rules backed by Title II.',
+            'Support Strong Net Neutrality backed by Title II Oversight of ISP\'s.',
+            'I am in support of strong net neutrality rules backed by Title II!',
+            'I specifically support strong net neutrality backed by title (2) two oversite of isps.'
         ]
 
         for text in oliver_text:
