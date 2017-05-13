@@ -54,7 +54,7 @@ class CommentAnalyzer:
 
     def index_worker(self, queue, size=250):
 
-        endpoint = '{}{}/filing/{}'.format(
+        url = '{}{}/filing/{}'.format(
             self.endpoint,
             'fcc-comments',
             '_bulk'
@@ -65,21 +65,21 @@ class CommentAnalyzer:
         while True:
             item = queue.get()
             if item is None:
-                print('bailing...')
+                print('exiting...')
                 break
             id_submission, analysis = item
 
-            index = {"update": {"_id" : id_submission} }
+            index = {"update": {"_id": id_submission}}
             payload.write(json.dumps(index))
             payload.write('\n')
-            payload.write(json.dumps({'doc': { 'analysis': analysis}}))
+            payload.write(json.dumps({'doc': {'analysis': analysis}}))
             payload.write('\n')
 
             counter += 1
             if counter % size == 0:
                 with warnings.catch_warnings():
                     warnings.simplefilter("ignore")
-                    response = requests.post(endpoint, data=payload.getvalue(), verify=self.verify)
+                    response = requests.post(url, data=payload.getvalue(), verify=self.verify)
                     for item in response.json()['items']:
                         if 'update' in item and item['update']['result'] not in ('updated', 'noop'):
                             print(json.dumps(item, indent=2))
