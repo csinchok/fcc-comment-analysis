@@ -44,6 +44,9 @@ def source(comment):
     if comment['text_data'].startswith('Obama’s Title II order has diminished broadband investment'):
         return 'form.diminished-investment'
 
+    if 'passed rules treating the internet as a government regulated public utility for the first time in history' in comment['text_data'].lower():
+        return 'form.freeourinternet'
+
     # This is the text that John Oliver suggested. Many people seemed to follow his suggestion.
     for pattern in OLIVER_PATTERNS:
         if pattern.search(comment['text_data']):
@@ -95,6 +98,7 @@ def analyze(comment):
         'bot.unprecedented': False,
         'bot.outraged': False,
         'form.diminished-investment': False,
+        'form.freeourinternet': False,
 
         'johnoliver': True,
         'form.battleforthenet': True,
