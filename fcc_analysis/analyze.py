@@ -106,7 +106,7 @@ class CommentAnalyzer:
                     warnings.simplefilter("ignore")
                     response = requests.post(endpoint, data=payload.getvalue(), verify=self.verify)
                     for item in response.json()['items']:
-                        if 'update' in item and item['update']['result'] != 'updated':
+                        if 'update' in item and item['update']['result'] not in ('updated', 'noop'):
                             print(json.dumps(item, indent=2))
                             raise Exception('Failure!')
                     if response.status_code != 200:
