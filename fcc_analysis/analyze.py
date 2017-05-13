@@ -97,7 +97,7 @@ class CommentAnalyzer:
             index = {"update": {"_id" : id_submission} }
             payload.write(json.dumps(index))
             payload.write('\n')
-            payload.write(json.dumps({'doc': {'fields':{ 'analysis': analysis}}}))
+            payload.write(json.dumps({'doc': { 'analysis': analysis}}))
             payload.write('\n')
 
             counter += 1
@@ -111,7 +111,7 @@ class CommentAnalyzer:
                             raise Exception('Failure!')
                     if response.status_code != 200:
                         print(response.text)
-                        raise Exception(response.status_code)
+                        return
                 payload = io.StringIO()
                 counter = 0
 
