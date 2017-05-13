@@ -45,6 +45,8 @@ def source(comment):
         if pattern.search(comment['text_data']):
             return 'johnoliver'
 
+    return 'unknown'
+
 
 def titleii(comment):
     return None
@@ -65,7 +67,7 @@ def fulladdress(comment):
 
 
 def fingerprint(comment):
-    '''Get a text fingerprint--useful for look for duplicate text'''
+    '''Get a text fingerprint--useful for looking for duplicate text'''
 
     text = comment.get('text_data', '').lower()
     text = WORDSPLIT_PATTERN.sub('', text)
@@ -76,10 +78,26 @@ def fingerprint(comment):
 
 
 def analyze(comment):
-    return {
+
+    analysis = {
         'fingerprint': fingerprint(comment),
         'fulladdress': fulladdress(comment),
         'capsemail': capsemail(comment),
         # 'titleii': titleii(comment),
         'source': source(comment)
     }
+
+    source_mapping = {
+        'bot.unprecedented': False,
+        'bot.outraged': False,
+        'form.diminished-investment': False,
+
+        'johnoliver': True,
+        'form.battleforthenet': True,
+        'reddit.technology': True,
+        'blog.venturebeat': True,
+    }
+    if analysis['source'] in source_mapping:
+        analysis['titleii'] = source_mapping[analysis['source']]
+
+    return analysis
