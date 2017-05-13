@@ -92,6 +92,7 @@ class AnalyzerTestCase(TestCase):
 
     def test_proceeding_hasf(self):
         self.assertEqual(
-            proceeding_hash({'foo': 'hello', 'bar': 'qux', 'qux': 'test'}),
-            proceeding_hash({'bar': 'qux', 'foo': 'hello', 'qux': 'test'})
+            proceeding_hash({'proceedings': {'foo': 'hello', 'bar': 'qux', 'qux': 'test'}}),
+            proceeding_hash({'proceedings': {'bar': 'qux', 'foo': 'hello', 'qux': 'test'}})
         )
+        self.assertIsInstance(proceeding_hash({'proceedings': {'bar': 'qux', 'foo': 'hello', 'qux': 'test'}}), int)

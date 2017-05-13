@@ -116,9 +116,9 @@ def fingerprint(comment):
 
 
 def proceeding_hash(comment):
-    if 'proceeding' not in comment:
+    if 'proceedings' not in comment:
         return
-    return hash(json.dumps(comment['proceeding'], sort_keys=True))
+    return hash(json.dumps(comment['proceedings'], sort_keys=True))
 
 
 def analyze(comment):
