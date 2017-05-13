@@ -9,3 +9,5 @@ pyvenv.cfg
 /include
 /share
 /.ipynb_checkpoints
+
+/.vscode/tags
