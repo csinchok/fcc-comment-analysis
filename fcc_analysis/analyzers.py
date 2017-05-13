@@ -11,6 +11,16 @@ OLIVER_PATTERNS = [
     re.compile('i( specifically| strongly)? support( strong)? net neutrality,?( oversight)?( backed)? by title (ii|2|two) oversight', flags=re.IGNORECASE),
 ]
 
+PRO_TITLE_II_PATTERNS = [
+    re.compile('(preserve|keep|maintain)( net)? neutrality', flags=re.IGNORECASE),
+    re.compile('I( strongly)? support title (2|ii|two|ll)', flags=re.IGNORECASE),
+    re.compile('I( strongly)? support net neutrality', flags=re.IGNORECASE)
+]
+
+ANTI_TITLE_II_PATTERNS = [
+    re.compile('obama\'s internet takeover', flags=re.IGNORECASE),
+]
+
 
 def source(comment):
     '''Returns a string identifying the "source" of this comment, if possible.
@@ -56,6 +66,15 @@ def source(comment):
 
 
 def titleii(comment):
+
+    for pattern in PRO_TITLE_II_PATTERNS:
+        if pattern.search(comment['text_data']):
+            return True
+
+    for pattern in ANTI_TITLE_II_PATTERNS:
+        if pattern.search(comment['text_data']):
+            return False
+
     return None
 
 
@@ -107,5 +126,11 @@ def analyze(comment):
     }
     if analysis['source'] in source_mapping:
         analysis['titleii'] = source_mapping[analysis['source']]
+
+    if 'titleii' not in analysis:
+
+        titleii_sent = titleii(comment)
+        if titleii_sent is not None:
+            analysis['titleii'] = titleii_sent
 
     return analysis

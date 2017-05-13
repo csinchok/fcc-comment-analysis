@@ -2,7 +2,7 @@ import os
 import json
 from unittest import TestCase
 
-from fcc_analysis.analyzers import source, fulladdress, capsemail, fingerprint
+from fcc_analysis.analyzers import source, fulladdress, capsemail, fingerprint, titleii
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
 
@@ -55,3 +55,19 @@ class AnalyzerTestCase(TestCase):
                 comment = {'text_data': text}
                 self.assertEqual(source(comment), sourcename, msg='No match for {}: \n    "{}"'.format(sourcename, text))
 
+    def test_titleii(self):
+
+        pro = [
+            'Preserve neutrality and keep title 2',
+            'Preserve net neutrality and title 2! Don\'t allow ISPs to throttle my usage based on incentives they get from corporations!',
+            'Preserve net neutrality and the listing of ISPs under title 2'
+            'I highly implore you to keep high net neutrality rules and regulations. ISPs have already tried to prevent people using services that they had payed for and preferred.',
+            'I strongly support title II regulations for ISP, net neutrality from the FCC.',
+            'I strongly support net neutrality. Many people have little to no choice in the cable and internet providers and this will hurt the people who do not have many choices in their ISPs',
+            'I support Title ll and net neutrality, do not change!!',
+            'Preserve net neutrality and Title 2 regulations for internet providers so we can have a free and open internet.'
+        ]
+
+        for text in pro:
+            comment = {'text_data': text}
+            self.assertTrue(titleii(comment), msg='Not classified as pro-titleii:\n    "{}"'.format(text[:100]))
