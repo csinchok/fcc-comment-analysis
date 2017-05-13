@@ -65,9 +65,25 @@ class AnalyzerTestCase(TestCase):
             'I strongly support title II regulations for ISP, net neutrality from the FCC.',
             'I strongly support net neutrality. Many people have little to no choice in the cable and internet providers and this will hurt the people who do not have many choices in their ISPs',
             'I support Title ll and net neutrality, do not change!!',
-            'Preserve net neutrality and Title 2 regulations for internet providers so we can have a free and open internet.'
+            'Preserve net neutrality and Title 2 regulations for internet providers so we can have a free and open internet.',
+            'Keep the Internet fair! Keep net neutrality!!',
+            'please preserve net neutral rules in title II.',
+            'I support net neutrality and maintaining title 2 status.',
+            'Network Neutrality Preserve Title II',
+            'I support strong net neutrality under title 2.',
+            'keep title 2 and net neutrality',
+            'Do not repeal net neutrality laws, the internet is a basic right!'
         ]
 
         for text in pro:
             comment = {'text_data': text}
-            self.assertTrue(titleii(comment), msg='Not classified as pro-titleii:\n    "{}"'.format(text[:100]))
+            self.assertTrue(titleii(comment), msg='Not classified as pro-title ii:\n    "{}"'.format(text[:100]))
+
+        anti = [
+            'Dear Express Restoring Internet Freedom, Please reverse the 2014 changes &amp; restraints on the internet. The Obama administration made a poor decision against our internet freedoms &amp; uses. Thank you for your kind attention.',
+            'Rollback Obamas internet takeover.',
+            'Please roll back the Title II regulations',
+        ]
+        for text in anti:
+            comment = {'text_data': text}
+            self.assertTrue(titleii(comment) is False, msg='Not classified as anti-title ii:\n    "{}"'.format(text[:100]))

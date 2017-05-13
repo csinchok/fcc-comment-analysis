@@ -6,19 +6,23 @@ NON_CHAR_PATTERN = re.compile('[^a-z ]+', re.UNICODE)
 
 # I know...now I have two problems...
 OLIVER_PATTERNS = [
-    re.compile('(strong )?net neutrality( rules)? backed by title (ii|2|two)', flags=re.IGNORECASE),
+    re.compile('(strong )?net neutrality( rules)? backed by title (ii|2|two|ll)', flags=re.IGNORECASE),
     re.compile('i( specifically| strongly)? support( strong)? net neutrality backed by title', flags=re.IGNORECASE),
-    re.compile('i( specifically| strongly)? support( strong)? net neutrality,?( oversight)?( backed)? by title (ii|2|two) oversight', flags=re.IGNORECASE),
+    re.compile('i( specifically| strongly)? support( strong)? net neutrality,?( oversight)?( backed)? by title (ii|2|two|ll) oversight', flags=re.IGNORECASE),
 ]
 
 PRO_TITLE_II_PATTERNS = [
-    re.compile('(preserve|keep|maintain)( net)? neutrality', flags=re.IGNORECASE),
+    re.compile('(preserve|keep|maintain)( net)? neutral(ity)?', flags=re.IGNORECASE),
+    re.compile('(preserve|keep|maintain) title (ii|2|two|ll)?', flags=re.IGNORECASE),
     re.compile('I( strongly)? support title (2|ii|two|ll)', flags=re.IGNORECASE),
-    re.compile('I( strongly)? support net neutrality', flags=re.IGNORECASE)
+    re.compile('I( strongly)? support( strong)? net neutrality', flags=re.IGNORECASE),
+    re.compile('do not repeal', flags=re.IGNORECASE)
 ]
 
 ANTI_TITLE_II_PATTERNS = [
-    re.compile('obama\'s internet takeover', flags=re.IGNORECASE),
+    re.compile('obama\'?s internet takeover', flags=re.IGNORECASE),
+    re.compile('please reverse the (2014|2015)', flags=re.IGNORECASE),
+    re.compile('please roll ?back', flags=re.IGNORECASE),
 ]
 
 
@@ -69,7 +73,6 @@ def titleii(comment):
 
     if 'text_data' not in comment:
         return None
-
 
     for pattern in PRO_TITLE_II_PATTERNS:
         if pattern.search(comment['text_data']):
