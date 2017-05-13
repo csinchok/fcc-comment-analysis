@@ -27,11 +27,7 @@ def source(comment):
     if comment['text_data'].startswith('I was outraged by the Obama/Wheeler FCC'):
         return 'bot.outraged'
 
-    # This is the text that John Oliver suggested. Many people seemed to follow his suggestion.
-    for pattern in OLIVER_PATTERNS:
-        if pattern.search(comment['text_data']):
-            return 'johnoliver'
-
+    # This one is interesting, because it appends the Submitter's first name to the text_data, making the fingerprint unreliable...
     if comment['text_data'].startswith('The FCC Open Internet Rules (net neutrality rules) are extremely important to me'):
         return 'form.battleforthenet'
 
@@ -44,6 +40,11 @@ def source(comment):
     if comment['text_data'].startswith('Obama’s Title II order has diminished broadband investment'):
         return 'form.diminished-investment'
 
+    # This is the text that John Oliver suggested. Many people seemed to follow his suggestion.
+    for pattern in OLIVER_PATTERNS:
+        if pattern.search(comment['text_data']):
+            return 'johnoliver'
+
 
 def titleii(comment):
     return None
@@ -53,13 +54,15 @@ def capsemail(comment):
     if comment.get('contact_email'):
         return comment['contact_email'] == comment['contact_email'].upper()
 
+
 def fulladdress(comment):
-    
+
     address = comment.get('addressentity', {})
     for key in ('address_line_1', 'city', 'state', 'zip_code'):
         if not address.get(key):
             return False
     return True
+
 
 def fingerprint(comment):
     '''Get a text fingerprint--useful for look for duplicate text'''
@@ -70,6 +73,7 @@ def fingerprint(comment):
     words = list(set(text.split()))
     words.sort()
     return " ".join(words)
+
 
 def analyze(comment):
     return {
