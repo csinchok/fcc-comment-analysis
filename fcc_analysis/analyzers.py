@@ -130,7 +130,7 @@ def analyze(comment):
         'capsemail': capsemail(comment),
         # 'titleii': titleii(comment),
         'source': source(comment),
-        'proceeding_keys': proceeding_keys(comment)
+        'proceedings_keys': proceeding_keys(comment)
     }
 
     source_mapping = {
