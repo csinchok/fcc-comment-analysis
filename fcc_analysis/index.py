@@ -24,13 +24,13 @@ class CommentIndexer:
     def run(self):
         index_queue = multiprocessing.Queue()
 
-        bulk_index_process = multiprocessing.Proccess(
+        bulk_index_process = multiprocessing.Process(
             target=self.bulk_index, args=(index_queue,),
         )
         bulk_index_process.start()
         progress = tqdm(total=1515603)
 
-        for comment in enumerate(self.iter_comments()):
+        for comment in self.iter_comments():
             index_queue.put(comment)
             progress.update(1)
 
@@ -58,7 +58,7 @@ class CommentIndexer:
                 try:
                     filings = response.json().get('filings', [])
                 except json.decoder.JSONDecodeError:
-                    print(response.status_code)
+                    # Exponentially wait--sometimes the API goes down.
                     time.sleep(math.pow(2, i))
                     continue
                 else:

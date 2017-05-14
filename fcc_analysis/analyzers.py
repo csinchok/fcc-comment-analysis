@@ -125,6 +125,15 @@ def proceeding_keys(comment):
     return ' '.join(keys)
 
 
+def onsite(comment):
+    if 'proceedings' not in comment:
+        return
+    for proceeding in comment['proceedings']:
+        if '_index' in proceeding:
+            return True
+    return False
+
+
 def analyze(comment):
 
     analysis = {
@@ -133,7 +142,8 @@ def analyze(comment):
         'capsemail': capsemail(comment),
         # 'titleii': titleii(comment),
         'source': source(comment),
-        'proceedings_keys': proceeding_keys(comment)
+        'proceedings_keys': proceeding_keys(comment),
+        'onsite': onsite(comment)
     }
 
     source_mapping = {
