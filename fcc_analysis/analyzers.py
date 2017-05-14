@@ -66,6 +66,9 @@ def source(comment):
     if comment['text_data'].startswith('"Dear Express Restoring Internet Freedom,'):
         return 'form.fwact'
 
+    if comment['text_data'].startswith('Obama\'s Federal Communications Commission (FCC) forced regulations on the internet that put the government'):
+        return 'form.tpa'
+
     # This is the text that John Oliver suggested. Many people seemed to follow his suggestion.
     for pattern in OLIVER_PATTERNS:
         if pattern.search(comment['text_data']):
@@ -152,6 +155,7 @@ def analyze(comment):
         'form.diminished-investment': False,
         'form.freeourinternet': False,
         'form.fwact': False,
+        'form.tpa': False,
 
         'johnoliver': True,
         'form.battleforthenet': True,
