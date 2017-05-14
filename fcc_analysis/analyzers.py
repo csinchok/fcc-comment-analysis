@@ -118,8 +118,11 @@ def fingerprint(comment):
 def proceeding_keys(comment):
     if 'proceedings' not in comment:
         return
-    keys = ''.join(sorted(list(comment['proceedings'].keys())))
-    return keys
+    keys = []
+    for proceeding in comment['proceedings']:
+        sorted_keys = sorted(list(proceeding.keys()))
+        keys.extend(sorted_keys)
+    return ' '.join(keys)
 
 
 def analyze(comment):

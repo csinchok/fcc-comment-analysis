@@ -94,7 +94,7 @@ class AnalyzerTestCase(TestCase):
 
     def test_proceeding_keys(self):
         self.assertEqual(
-            proceeding_keys({'proceedings': {'foo': 'hello', 'bar': 'qux', 'qux': 'test'}}),
-            proceeding_keys({'proceedings': {'bar': 'qux', 'foo': 'hello', 'qux': 'test'}})
+            proceeding_keys({'proceedings': [{'foo': 'hello', 'bar': 'qux', 'qux': 'test'}]}),
+            proceeding_keys({'proceedings': [{'bar': 'qux', 'foo': 'hello', 'qux': 'test'}]})
         )
-        self.assertIsInstance(proceeding_keys({'proceedings': {'bar': 'qux', 'foo': 'hello', 'qux': 'test'}}), str)
+        self.assertIsInstance(proceeding_keys({'proceedings': [{'bar': 'qux', 'foo': 'hello', 'qux': 'test'}]}), str)
