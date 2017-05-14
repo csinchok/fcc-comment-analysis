@@ -112,7 +112,7 @@ def fingerprint(comment):
     text = NON_CHAR_PATTERN.sub(' ', text)
     words = list(set(text.split()))
     words.sort()
-    return " ".join(words)
+    return " ".join(words)[:1000]  # Some people are assholes...
 
 
 def proceeding_keys(comment):
