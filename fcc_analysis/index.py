@@ -10,7 +10,7 @@ import math
 
 class CommentIndexer:
 
-    def __init__(self, lte=None, gte=None, limit=100, sort='date_disseminated,DESC', fastout=False, verify=True, endpoint='http://127.0.0.1/'):
+    def __init__(self, lte=None, gte=None, limit=250, sort='date_disseminated,DESC', fastout=False, verify=True, endpoint='http://127.0.0.1/'):
         self.lte = lte
         self.gte = gte
         self.limit = limit
