@@ -1,11 +1,11 @@
-import argparse
-import requests
-import time
 import io
 import itertools
 import json
-import warnings
 import math
+import time
+import warnings
+
+import requests
 
 
 class CommentIndexer:
