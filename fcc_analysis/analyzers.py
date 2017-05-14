@@ -115,10 +115,11 @@ def fingerprint(comment):
     return " ".join(words)
 
 
-def proceeding_hash(comment):
+def proceeding_keys(comment):
     if 'proceedings' not in comment:
         return
-    return hash(json.dumps(comment['proceedings'], sort_keys=True))
+    keys = ''.join(sorted(list(comment['proceedings'].keys())))
+    return keys
 
 
 def analyze(comment):
@@ -129,7 +130,7 @@ def analyze(comment):
         'capsemail': capsemail(comment),
         # 'titleii': titleii(comment),
         'source': source(comment),
-        'proceeding_hash': proceeding_hash(comment)
+        'proceeding_keys': proceeding_keys(comment)
     }
 
     source_mapping = {

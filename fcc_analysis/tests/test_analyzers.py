@@ -2,7 +2,9 @@ import os
 import json
 from unittest import TestCase
 
-from fcc_analysis.analyzers import source, fulladdress, capsemail, fingerprint, titleii, proceeding_hash
+from fcc_analysis.analyzers import (
+    source, fulladdress, capsemail, fingerprint, titleii, proceeding_keys
+)
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
 
@@ -90,9 +92,9 @@ class AnalyzerTestCase(TestCase):
             comment = {'text_data': text}
             self.assertTrue(titleii(comment) is False, msg='Not classified as anti-title ii:\n    "{}"'.format(text[:100]))
 
-    def test_proceeding_hasf(self):
+    def test_proceeding_keys(self):
         self.assertEqual(
-            proceeding_hash({'proceedings': {'foo': 'hello', 'bar': 'qux', 'qux': 'test'}}),
-            proceeding_hash({'proceedings': {'bar': 'qux', 'foo': 'hello', 'qux': 'test'}})
+            proceeding_keys({'proceedings': {'foo': 'hello', 'bar': 'qux', 'qux': 'test'}}),
+            proceeding_keys({'proceedings': {'bar': 'qux', 'foo': 'hello', 'qux': 'test'}})
         )
-        self.assertIsInstance(proceeding_hash({'proceedings': {'bar': 'qux', 'foo': 'hello', 'qux': 'test'}}), int)
+        self.assertIsInstance(proceeding_keys({'proceedings': {'bar': 'qux', 'foo': 'hello', 'qux': 'test'}}), str)
