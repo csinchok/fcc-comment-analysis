@@ -1,6 +1,3 @@
+# FCC Comment Analysis
 
-
-
-may 11th, 20:15:53
-
-may 10th 13:15:41
+This reposity has Python code designed to download FCC data, storing it in an ElasticSearch instance. There's an additional command to tag and analyze the data further.

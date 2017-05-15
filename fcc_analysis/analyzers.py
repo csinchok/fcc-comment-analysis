@@ -63,11 +63,17 @@ def source(comment):
     if 'passed rules treating the internet as a government regulated public utility for the first time in history' in comment['text_data'].lower():
         return 'form.freeourinternet'
 
-    if comment['text_data'].startswith('"Dear Express Restoring Internet Freedom,'):
+    if 'Dear Express Restoring Internet Freedom,' in comment['text_data']:
         return 'form.fwact'
 
     if comment['text_data'].startswith('Obama\'s Federal Communications Commission (FCC) forced regulations on the internet that put the government'):
         return 'form.tpa'
+
+    if 'The FCC needs to stand up for Internet users like me and keep the net neutrality rules that are already in effect.' in comment['text_data']:
+        return 'form.dearfcc'
+
+    if comment['text_data'].startswith('This illogically named "restoring internet freedom" filing is aimed squarely at the freedom of the internet'):
+        return 'bot.illocially-named'
 
     # This is the text that John Oliver suggested. Many people seemed to follow his suggestion.
     for pattern in OLIVER_PATTERNS:
@@ -161,6 +167,7 @@ def analyze(comment):
         'form.battleforthenet': True,
         'reddit.technology': True,
         'blog.venturebeat': True,
+        'form.dearfcc': True
     }
     if analysis['source'] in source_mapping:
         analysis['titleii'] = source_mapping[analysis['source']]
