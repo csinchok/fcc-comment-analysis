@@ -1,4 +1,3 @@
-import json
 import re
 
 WORDSPLIT_PATTERN = re.compile("['-]+", re.UNICODE)
@@ -26,6 +25,18 @@ ANTI_TITLE_II_PATTERNS = [
     re.compile('please reverse the (2014|2015)', flags=re.IGNORECASE),
     re.compile('please roll ?back', flags=re.IGNORECASE),
 ]
+
+
+def ingestion_method(comment):
+
+    if comment.get('browser') == 'OpenCSVBox':
+        return 'csv'
+
+    for proceeding in comment['proceedings']:
+        if '_index' in proceeding:
+            return 'direct'
+
+    return 'api'
 
 
 def source(comment):
@@ -152,7 +163,8 @@ def analyze(comment):
         # 'titleii': titleii(comment),
         'source': source(comment),
         'proceedings_keys': proceeding_keys(comment),
-        'onsite': onsite(comment)
+        'onsite': onsite(comment),
+        'ingestion_method': ingestion_method(comment)
     }
 
     source_mapping = {
