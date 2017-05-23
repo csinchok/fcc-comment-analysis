@@ -17,7 +17,8 @@ PRO_TITLE_II_PATTERNS = [
     re.compile('I( strongly)? support title (2|ii|two|ll)', flags=re.IGNORECASE),
     re.compile('I( strongly| specifically)? support( strong)? net neutrality', flags=re.IGNORECASE),
     re.compile('(strongly|specifically) support (net neutrality|title (ii|2|two|ll))', flags=re.IGNORECASE),
-    re.compile('do not (repeal|revoke|remove)', flags=re.IGNORECASE)
+    re.compile('do not (repeal|revoke|remove)', flags=re.IGNORECASE),
+	re.compile('we deserve a free and open internet with strong title ii rules', flags=re.IGNORECASE)
 ]
 
 ANTI_TITLE_II_PATTERNS = [
@@ -25,7 +26,6 @@ ANTI_TITLE_II_PATTERNS = [
     re.compile('please reverse the (2014|2015)', flags=re.IGNORECASE),
     re.compile('please roll ?back', flags=re.IGNORECASE),
 ]
-
 
 def ingestion_method(comment):
 
@@ -84,7 +84,10 @@ def source(comment):
         return 'form.dearfcc'
 
     if comment['text_data'].startswith('This illogically named "restoring internet freedom" filing is aimed squarely at the freedom of the internet'):
-        return 'bot.illocially-named'
+        return 'bot.illogically-named'
+
+    if comment['text_data'].startswith('Don’t kill net neutrality'):
+        return 'form.protectnetneutrality'
 
     # This is the text that John Oliver suggested. Many people seemed to follow his suggestion.
     for pattern in OLIVER_PATTERNS:
@@ -179,7 +182,8 @@ def analyze(comment):
         'form.battleforthenet': True,
         'reddit.technology': True,
         'blog.venturebeat': True,
-        'form.dearfcc': True
+        'form.dearfcc': True,
+		'form.protectnetneutrality:' True
     }
     if analysis['source'] in source_mapping:
         analysis['titleii'] = source_mapping[analysis['source']]
