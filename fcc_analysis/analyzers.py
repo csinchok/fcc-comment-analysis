@@ -29,7 +29,7 @@ ANTI_TITLE_II_PATTERNS = [
 
 def ingestion_method(comment):
 
-    if comment.get('browser').starswith('OpenCSV'):
+    if comment.get('browser').startswith('OpenCSV'):
         return 'csv'
 
     for proceeding in comment['proceedings']:
