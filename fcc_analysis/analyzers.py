@@ -29,7 +29,7 @@ ANTI_TITLE_II_PATTERNS = [
 
 def ingestion_method(comment):
 
-    if comment.get('browser') == 'OpenCSVBox':
+    if comment.get('browser').starswith('OpenCSV'):
         return 'csv'
 
     for proceeding in comment['proceedings']:
@@ -85,6 +85,9 @@ def source(comment):
 
     if comment['text_data'].startswith('This illogically named "restoring internet freedom" filing is aimed squarely at the freedom of the internet'):
         return 'bot.illocially-named'
+
+    if comment['text_data'].startswith('Don\'t kill net neutrality. We deserve a free and open Internet with strong Title II rules'):
+        return 'form.signforgood'
 
     # This is the text that John Oliver suggested. Many people seemed to follow his suggestion.
     for pattern in OLIVER_PATTERNS:
