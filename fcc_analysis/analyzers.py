@@ -96,8 +96,11 @@ def source(comment):
     if comment['text_data'].startswith('This illogically named "restoring internet freedom" filing is aimed squarely at the freedom of the internet'):
         return 'bot.illogically-named'
 
-    if comment['text_data'].startswith('Don\'t kill net neutrality. We deserve a free and open Internet with strong Title II rules'):
+    if comment['text_data'].startswith('Don\'t kill net neutrality. We deserve a free and open Internet'):
         return 'form.signforgood'
+
+    if comment['text_data'].startswith('Net Neutrality is not negotiable'):
+        return 'form.freepress'
 
     if comment['text_data'].startswith('A free and open internet is critical for Americans to connect with their friends and family, exercise their freedom of speech'):
         return 'form.demandprogress'

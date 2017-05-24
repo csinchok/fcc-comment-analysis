@@ -54,9 +54,11 @@ class AnalyzerTestCase(TestCase):
             ],
             'unknown': [
                 'I support net neutrality. The internet is key to freedom of speech and to leading our daily lives. It should be equally available to everyone.'
+                'I firmly support the Open Internet Rule (or commonly known as Net Neutrality). Specifically, I demand that FCC maintains its stance to classify Internet service providers under the Communication Act of 1934 Title II (Common Carrier).  Also, please re-open FCC investigation of zero-rating practices by wireless providers T-Mobile, AT&T and Verizon so that Internet Service Providers do not pick winners and losers of content providers. Further, I strongly reject Laissez-faire economics and the hands-off approach toward government regulations espoused by the Chairman of the Federal Communications Commission Ajit Varadaraj Pai.'
             ],
             'bot.recursive': [
                 "To the FCC:  Hi, I'd like to comment on Internet freedom. I want to advocate Ajit Pai to reverse Barack Obama's plan to control broadband. Americans, not Washington bureaucrats, should select whatever applications we want. Barack Obama's plan to control broadband is a exploitation  of net neutrality. It disrupted a market-based policy that functioned very smoothly for many years with Republican and Democrat consensus."
+                "To the FCC: I am concerned about internet regulations. I would like to implore the FCC to rescind Tom Wheeler's scheme to take over the Internet. Individuals, as opposed to big government, should use whatever applications they desire. Tom Wheeler's scheme to take over the Internet is a perversion of net neutrality. It disrupted a market-based policy that performed very smoothly for two decades with both parties' backing."
             ]
         }
 
