@@ -26,7 +26,7 @@ ANTI_TITLE_II_PATTERNS = [
     re.compile('please roll ?back', flags=re.IGNORECASE),
 ]
 
-SMART_BOT_PATTERN = [
+SMART_BOT_PATTERNS = [
     re.compile('It undid|broke|disrupted|stopped|reversed|ended a market-based|pro-consumer|free-market|hands-off|light-touch policy|approach|system|framework that performed|worked|functioned fabulously|exceptionally|very, very|very|supremely|remarkably smoothly|successfully|well for many years|a long time|two decades|decades')
 ]
 
@@ -102,8 +102,9 @@ def source(comment):
     if comment['text_data'].startswith('A free and open internet is critical for Americans to connect with their friends and family, exercise their freedom of speech'):
         return 'form.demandprogress'
 
-    for pattern in SMART_BOT_PATTERN:
-        if pattern.search(comment['text_data']):
+    last_sentence = comment['text_data'].rsplit('.')[-1]
+    for pattern in SMART_BOT_PATTERNS:
+        if pattern.match(last_sentence):
             return 'bot.recursive'
 
     # This is the text that John Oliver suggested. Many people seemed to follow his suggestion.

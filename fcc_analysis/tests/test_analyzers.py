@@ -51,6 +51,9 @@ class AnalyzerTestCase(TestCase):
             ],
             'form.freeourinternet': [
                 'In 2015, President Obama’s FCC passed rules treating the Internet as a government regulated public utility for the first time in history. Those pushing hardest for the new rules were Silicon Valley monopolies like Google and leftist globalists like George Soros.'
+            ],
+            'unknown': [
+                'I support net neutrality. The internet is key to freedom of speech and to leading our daily lives. It should be equally available to everyone.'
             ]
         }
 
