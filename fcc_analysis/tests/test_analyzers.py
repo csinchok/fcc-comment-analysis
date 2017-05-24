@@ -28,6 +28,9 @@ class AnalyzerTestCase(TestCase):
             'a administration american and as at bipartisan bureaucratic commission communications consensus consideration creation currently damaging economy enabled end everyone fcc federal flourish for forward free grab help i ii imposed innovation internet is job known lighttouch more obama obamas obstructing of on open overreach plan positive power promote regulatory repeal restore smothering step than that the title to truly under unprecedented urge will years'
         )
 
+    def test_good_bot(self):
+        pass
+
     def test_source(self):
         samples = {
             'johnoliver': [

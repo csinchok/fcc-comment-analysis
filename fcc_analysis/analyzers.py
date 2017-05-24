@@ -26,6 +26,10 @@ ANTI_TITLE_II_PATTERNS = [
     re.compile('please roll ?back', flags=re.IGNORECASE),
 ]
 
+SMART_BOT_PATTERN = [
+    re.compile('It undid|broke|disrupted|stopped|reversed|ended a market-based|pro-consumer|free-market|hands-off|light-touch policy|approach|system|framework that performed|worked|functioned fabulously|exceptionally|very, very|very|supremely|remarkably smoothly|successfully|well for many years|a long time|two decades|decades')
+]
+
 
 def ingestion_method(comment):
 
@@ -74,20 +78,33 @@ def source(comment):
     if 'passed rules treating the internet as a government regulated public utility for the first time in history' in comment['text_data'].lower():
         return 'form.freeourinternet'
 
+    if comment['text_data'].startswith('In 2015, wealthy leftist billionaires and powerful Silicon Valley monopolies took the internet'):
+        return 'form.freeourinternet'
+
     if 'Dear Express Restoring Internet Freedom,' in comment['text_data']:
         return 'form.fwact'
 
     if comment['text_data'].startswith('Obama\'s Federal Communications Commission (FCC) forced regulations on the internet that put the government'):
         return 'form.tpa'
 
+    if 'These rules have cost taxpayers, slowed down broadband infrastructure investment, and hindered competition and choice for Americans' in comment['text_data']:
+        return 'form.tpa'
+
     if 'The FCC needs to stand up for Internet users like me and keep the net neutrality rules that are already in effect.' in comment['text_data']:
         return 'form.dearfcc'
 
     if comment['text_data'].startswith('This illogically named "restoring internet freedom" filing is aimed squarely at the freedom of the internet'):
-        return 'bot.illocially-named'
+        return 'bot.illogically-named'
 
     if comment['text_data'].startswith('Don\'t kill net neutrality. We deserve a free and open Internet with strong Title II rules'):
         return 'form.signforgood'
+
+    if comment['text_data'].startswith('A free and open internet is critical for Americans to connect with their friends and family, exercise their freedom of speech'):
+        return 'form.demandprogress'
+
+    for pattern in SMART_BOT_PATTERN:
+        if pattern.search(comment['text_data']):
+            return 'bot.recursive'
 
     # This is the text that John Oliver suggested. Many people seemed to follow his suggestion.
     for pattern in OLIVER_PATTERNS:
@@ -177,12 +194,15 @@ def analyze(comment):
         'form.freeourinternet': False,
         'form.fwact': False,
         'form.tpa': False,
+        'bot.recursive'
 
         'johnoliver': True,
         'form.battleforthenet': True,
         'reddit.technology': True,
         'blog.venturebeat': True,
-        'form.dearfcc': True
+        'form.dearfcc': True,
+        'form.signforgood': True,
+        'form.demandprogress': True
     }
     if analysis['source'] in source_mapping:
         analysis['titleii'] = source_mapping[analysis['source']]
