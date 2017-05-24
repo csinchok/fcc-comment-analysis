@@ -90,6 +90,9 @@ def source(comment):
     if 'These rules have cost taxpayers, slowed down broadband infrastructure investment, and hindered competition and choice for Americans' in comment['text_data']:
         return 'form.tpa'
 
+    if "The FCC should throw out Chairman Ajit Pai's proposal to give the ISP monopolies" in comment['text_data']:
+        return 'bot.internetuser'
+
     if 'The FCC needs to stand up for Internet users like me and keep the net neutrality rules that are already in effect.' in comment['text_data']:
         return 'form.dearfcc'
 
