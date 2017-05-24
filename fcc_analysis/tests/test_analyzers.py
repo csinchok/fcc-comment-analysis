@@ -54,6 +54,9 @@ class AnalyzerTestCase(TestCase):
             ],
             'unknown': [
                 'I support net neutrality. The internet is key to freedom of speech and to leading our daily lives. It should be equally available to everyone.'
+            ],
+            'bot.recursive': [
+                "To the FCC:  Hi, I'd like to comment on Internet freedom. I want to advocate Ajit Pai to reverse Barack Obama's plan to control broadband. Americans, not Washington bureaucrats, should select whatever applications we want. Barack Obama's plan to control broadband is a exploitation  of net neutrality. It disrupted a market-based policy that functioned very smoothly for many years with Republican and Democrat consensus."
             ]
         }
 
