@@ -1,3 +1,4 @@
+from datetime import datetime
 import io
 import itertools
 import json
@@ -13,6 +14,10 @@ import requests
 class CommentIndexer:
 
     def __init__(self, lte=None, gte=None, limit=250, sort='date_disseminated,DESC', fastout=False, verify=True, endpoint='http://127.0.0.1/'):
+        if gte and not lte:
+            lte = datetime.now().isoformat()
+        if lte and not gte:
+            gte = '2000-01-01'
         self.lte = lte
         self.gte = gte
         self.limit = limit
@@ -20,6 +25,7 @@ class CommentIndexer:
         self.fastout = fastout
         self.verify = verify
         self.endpoint = endpoint
+        self.fcc_endpoint = 'https://ecfsapi.fcc.gov/filings'
 
     def run(self):
         index_queue = multiprocessing.Queue()
@@ -28,7 +34,11 @@ class CommentIndexer:
             target=self.bulk_index, args=(index_queue,),
         )
         bulk_index_process.start()
-        progress = tqdm(total=1515603)
+        total = self.get_total()
+        if not total:
+            print('error loading document total; using estimate')
+            total = 5000000
+        progress = tqdm(total=total)
 
         for comment in self.iter_comments():
             index_queue.put(comment)
@@ -38,22 +48,43 @@ class CommentIndexer:
         bulk_index_process.join()
         progress.close()
 
+    def build_query(self):
+        query = {
+            'proceedings.name': '17-108',
+            'sort': self.sort
+        }
+        if self.lte and self.gte:
+            query['date_received'] = '[gte]{gte}[lte]{lte}'.format(
+                gte=self.gte,
+                lte=self.lte
+            )
+        return query
+
+    def get_total(self):
+        query = self.build_query()
+        query['limit'] = 1
+        response = requests.get(self.fcc_endpoint, params=query)
+        try:
+            agg = response.json().get('aggregations', {})
+            if not agg:
+                return None
+            for bucket in agg.get('proceedings_name', {}).get('buckets', []):
+                if bucket['key'] == query['proceedings.name']:
+                    return bucket['doc_count']
+        except json.decoder.JSONDecodeError:
+            return None
+        return None
+
+
     def iter_comments(self, page=0):
-        endpoint = 'https://ecfsapi.fcc.gov/filings'
+        query = self.build_query()
         for page in itertools.count(0):
-            query = {
-                'proceedings.name': '17-108',
+            query.update({
                 'limit': self.limit,
                 'offset': page * self.limit,
-                'sort': self.sort
-            }
-            if self.lte and self.gte:
-                query['date_received'] = '[gte]{gte}[lte]{lte}'.format(
-                    gte=self.gte,
-                    lte=self.lte
-                )
+            })
             for i in range(7):
-                response = requests.get(endpoint, params=query)
+                response = requests.get(self.fcc_endpoint, params=query)
 
                 try:
                     filings = response.json().get('filings', [])
